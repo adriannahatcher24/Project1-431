@@ -17,11 +17,21 @@ int main() {
         return 1;
     }
 
+    int inside_comment = 0; // Flag to indicate if inside a comment block
+
     while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
         int len = strlen(line);
         for (int i = 0; i < len; i++) {
-            if (line[i] == '{' || line[i] == '}' || line[i] == '(' || line[i] == ')') {
+            if (!inside_comment && line[i] == '{') {
                 printf("%c", line[i]);
+            } else if (!inside_comment && line[i] == '}') {
+                printf("%c", line[i]);
+            } else if (!inside_comment && line[i] == '(') {
+                printf("%c", line[i]);
+            } else if (!inside_comment && line[i] == ')') {
+                printf("%c", line[i]);
+            } else if (line[i] == '/' && i + 1 < len && line[i + 1] == '/') {
+                break; // Skip the rest of the line if it's a comment
             }
         }
     }
